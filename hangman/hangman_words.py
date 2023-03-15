@@ -1,0 +1,20 @@
+word_list = [
+    'Drill your skills',
+    'Embrace Carpe Diem',
+    'Embrace constant change',
+    'Emotions create relatability',
+    'Energy draws attention',
+    'Enforce consequences rigorously',
+    'Exceptional makes memorable',
+    'Exclusivity adds value',
+    'Focus and win',
+    'Focus vs. scattered',
+    'Friends are treasures',
+    'Get over it',
+    'Grace under pressure',
+    'Go for it',
+    'Handle breakdowns immediately',
+    'Happiness is Choice',
+    'Health is wealth',
+    'Hope trumps all']
+
