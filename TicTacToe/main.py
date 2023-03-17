@@ -1,5 +1,5 @@
 from function import *
-
+# print(f'file name = {__name__}')
 while True:
     print(LOGO)
     game_over = False
