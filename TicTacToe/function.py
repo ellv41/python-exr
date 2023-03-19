@@ -1,4 +1,5 @@
 # from gen_var import *
+import random
 
 # only playing on 3 X 3 board
 GAME_BOARD = [['_', '_', '_'], ['_', '_', '_'], ['_', '_', '_']]
@@ -12,7 +13,6 @@ SIZE = ['0', '1', '2']
 COMPUTER = 'C'
 HUMAN = 'H'
 
-
 LOGO = """
 ******* TIC   TAC   TOE *******
         |  _  |  _  |  _  |
@@ -22,19 +22,26 @@ LOGO = """
 """
 
 
-def reset_board():
-    global VICTORY_X
-    global VICTORY_O
-    global GAME_BOARD
-
-    for i in range(0, 8):
-        VICTORY_X[i] = 0
-        VICTORY_O[i] = 0
-
-    for i in range(0, 3):
-        for j in range(0, 3):
-            GAME_BOARD[i][j] = '_'
-
+# def computer_play_r():
+#     global VICTORY_X
+#     global VICTORY_O
+#     global GAME_BOARD
+#     empty = '_'
+#     total_sq = 0
+#     row1 = -1
+#     col1 = -1
+#     bord_1 = {"0-0": '_', "0-1": '_', "0-2": '_'
+#              ,"1-0": '_', "1-1": '_', "1-2": '_'
+#              ,"2-0": '_', "2-1": '_', "2-2": '_'}
+#     board_s = len(GAME_BOARD)
+#     for i in range(0, board_s):
+#         for j in range(0, board_s):
+#             bord_1[f'{i}-{j}'] = GAME_BOARD[i][j]
+#     print(bord_1)
+#     empty_spaces = bord_1.values()
+#     print(empty_spaces)
+#     random.choice(empty_spaces)
+#     return i, j
 
 def computer_play():
     global VICTORY_X
@@ -94,7 +101,7 @@ def check_board(ply1):
             victory[6] += 1
         for j in range(0, b_size):
             if GAME_BOARD[i][j] == ply1:
-                victory[j+3] += 1
+                victory[j + 3] += 1
     j = b_size - 1
     for i in range(0, b_size):
         if GAME_BOARD[j][i] == ply1:
@@ -104,8 +111,8 @@ def check_board(ply1):
         VICTORY_X = victory
     else:
         VICTORY_O = victory
-    print(f'player{ply1} victory = {VICTORY_X}') if ply1 == PLAYER1 else print(f'player{ply1} victory = {VICTORY_O}')
-    print(f'free = {free}')
+    # print(f'player{ply1} victory = {VICTORY_X}') if ply1 == PLAYER1 else print(f'player{ply1} victory = {VICTORY_O}')
+    # print(f'free = {free}')
     if VICTORY_X.count(b_size) > 0:
         return PLAYER1
     elif VICTORY_O.count(b_size) > 0:
@@ -113,12 +120,6 @@ def check_board(ply1):
     elif free == 0:
         return 'D'
     return 0
-
-
-def print_bord():
-    global GAME_BOARD
-    for i in range(0, len(GAME_BOARD)):
-        print(f'|  {GAME_BOARD[i][0]}  |  {GAME_BOARD[i][1]}  |  {GAME_BOARD[i][2]}  |\n')
 
 
 # FUNC for input from player for row and col
@@ -141,3 +142,57 @@ def play_move(plyer, opponent):
                 legal = False
     GAME_BOARD[int(row)][int(col)] = plyer
     return check_board(plyer)
+
+
+def print_bord():
+    global GAME_BOARD
+    for i in range(0, len(GAME_BOARD)):
+        print(f'|  {GAME_BOARD[i][0]}  |  {GAME_BOARD[i][1]}  |  {GAME_BOARD[i][2]}  |\n')
+
+
+def reset_board():
+    global VICTORY_X
+    global VICTORY_O
+    global GAME_BOARD
+
+    for i in range(0, 8):
+        VICTORY_X[i] = 0
+        VICTORY_O[i] = 0
+
+    for i in range(0, 3):
+        for j in range(0, 3):
+            GAME_BOARD[i][j] = '_'
+
+
+if __name__ == "__main__":
+
+    while True:
+        print(LOGO)
+        game_over = False
+        opponent = input("for playing against the computer press C : ").upper()
+        if opponent != COMPUTER:
+            opponent = HUMAN
+        player = PLAYER1
+        # start the game first move is  played by X (C)
+        reset_board()
+        while not game_over:
+            print(f'player {player} your turn')
+            game_status = play_move(player, opponent)
+            print("\n")
+            print_bord()
+            if player == PLAYER1:
+                player = PLAYER2
+            else:
+                player = PLAYER1
+            if game_status == 'D':
+                print(f'no more moves the board is full')
+                game_over = True
+            elif game_status != 0:
+                print(f'\n ****** And the Winner is ********* player-{game_status}')
+                game_over = True
+        # GAME_BOARD.clear()
+        tmp1 = input('want another game press Y : ')
+        if tmp1 not in ['Y', 'y']:
+            break
+
+# end Main

@@ -1,5 +1,4 @@
-from function_r import *
-
+from function import *
 
 while True:
 
@@ -31,4 +30,6 @@ while True:
         print_bord()
     if input('want another game press Y : ').upper() != 'Y':
         break
+
 # end Main
+
